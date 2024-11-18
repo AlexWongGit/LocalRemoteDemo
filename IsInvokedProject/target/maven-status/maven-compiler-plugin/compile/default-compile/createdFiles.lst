@@ -1,0 +1,4 @@
+com/test/service/impl/TestServiceImpl.class
+com/test/controller/TestController.class
+com/test/service/TestService.class
+com/test/IsInvokedApplication.class
