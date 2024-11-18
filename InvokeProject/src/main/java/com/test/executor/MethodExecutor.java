@@ -10,17 +10,17 @@ import org.springframework.util.ReflectionUtils;
 @Component
 public class MethodExecutor {
 
-    @Autowired
-    private ApplicationContext applicationContext;
-    public Object executeMethod(String beanName, String methodName, Object... args) throws Exception {
+    public Object executeMethod(Object bean, String methodName, Object... args) throws Exception {
         // 获取类的实例
-        Object bean = applicationContext.getBean(beanName);
+        if (bean == null) {
+            throw new IllegalArgumentException("Bean not found.");
+        }
 
         // 获取方法对象
         Method method = ReflectionUtils.findMethod(bean.getClass(), methodName, getParameterTypes(args));
 
         if (method == null) {
-            throw new NoSuchMethodException("Method '" + methodName + "' not found in bean '" + beanName + "'.");
+            throw new NoSuchMethodException("Method '" + methodName + "' not found in bean '" + bean + "'.");
         }
 
         // 执行方法

@@ -3,7 +3,7 @@ package com.test.service.impl;
 import com.test.service.TestService;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service(value = "testService")
 public class TestServiceImpl implements TestService {
 
     @Override
