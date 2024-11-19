@@ -1,6 +1,6 @@
 package com.test.controller;
 
-import com.test.executor.MethodExecutor;
+import com.test.executor.LocalMethodExecutor;
 import com.test.feign.FeignClientService;
 import com.test.utils.SpringContextUtil;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -17,7 +17,7 @@ public class TestController {
     private FeignClientService feignClientService;
 
     @Autowired
-    private MethodExecutor methodExecutor;
+    private LocalMethodExecutor localMethodExecutor;
 
 
 
@@ -25,7 +25,7 @@ public class TestController {
     public Integer getAge(Integer age) throws Exception {
         try {
             Object bean = SpringContextUtil.getBean("testService");
-            return (Integer)methodExecutor.executeMethod(bean, "getAge", age);
+            return localMethodExecutor.executeMethod(bean, Integer.class,"getAge", age);
         } catch (NoSuchBeanDefinitionException e) {
             return feignClientService.getAge(age);
         }
