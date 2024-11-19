@@ -22,21 +22,12 @@ public class TestController {
 
 
     @GetMapping("/getAge")
-    public Integer getAge(Integer age,boolean isLocal) throws Exception {
+    public Integer getAge(Integer age) throws Exception {
         try {
             Object bean = SpringContextUtil.getBean("testService");
             return (Integer)methodExecutor.executeMethod(bean, "getAge", age);
         } catch (NoSuchBeanDefinitionException e) {
             return feignClientService.getAge(age);
-        }
-    }
-
-    @GetMapping("/getName")
-    public String getName(boolean isLocal) throws Exception {
-        if (isLocal) {
-            return (String)methodExecutor.executeMethod("testService", "getName", null);
-        } else {
-            return feignClientService.getName();
         }
     }
 }

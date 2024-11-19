@@ -1,4 +1,4 @@
-package com.test.service;
+package com.becalled.service;
 
 public interface TestService {
 

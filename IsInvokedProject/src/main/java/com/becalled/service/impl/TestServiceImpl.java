@@ -1,6 +1,6 @@
-package com.test.service.impl;
+package com.becalled.service.impl;
 
-import com.test.service.TestService;
+import com.becalled.service.TestService;
 import org.springframework.stereotype.Service;
 
 @Service

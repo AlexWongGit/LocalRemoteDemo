@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="IsInvokedProject" />
+        <module name="invoke-project" />
         <module name="InvokeProject" />
       </profile>
     </annotationProcessing>
@@ -16,6 +17,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="InvokeProject" options="-parameters" />
       <module name="IsInvokedProject" options="-parameters" />
+      <module name="invoke-project" options="-parameters" />
     </option>
   </component>
 </project>

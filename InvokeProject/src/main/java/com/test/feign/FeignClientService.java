@@ -1,9 +1,11 @@
 package com.test.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(url = "http://localhost:48081",name = "IsInvokedProject")
+@FeignClient(name = "feignService",url = "http://localhost:48081")
+@Component
 public interface FeignClientService {
     @GetMapping("/test/getAge")
     Integer getAge(@RequestParam Integer age);
