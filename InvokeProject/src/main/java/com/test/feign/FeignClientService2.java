@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @CustomFeignClient(beanName = "testServiceImpl2",name = "testServiceImpl2",url = "http://localhost:48081")
 public interface FeignClientService2 {
 
-    @GetMapping("/test/getAge")
+    @GetMapping("/test/getAge2")
     Integer getAge(@RequestParam Integer age);
 
-    @GetMapping("/test/getName")
-    String getName();
 
 }
