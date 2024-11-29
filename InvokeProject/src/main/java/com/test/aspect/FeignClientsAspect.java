@@ -31,10 +31,8 @@ public class FeignClientsAspect implements ApplicationContextAware {
 
     @Around("@within(com.test.annotation.CustomFeignClient)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        // 获取目标类
-        Class<?> targetClass = AopUtils.getTargetClass(joinPoint.getTarget());
-        // 获取注解
-        CustomFeignClient customFeignClientAnnotation = AnnotationUtils.findAnnotation(targetClass, CustomFeignClient.class);
+        // 获取注解（这里要获取代理类上的注解）
+        CustomFeignClient customFeignClientAnnotation = AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), CustomFeignClient.class);
 
         if (customFeignClientAnnotation == null) {
             return joinPoint.proceed();
