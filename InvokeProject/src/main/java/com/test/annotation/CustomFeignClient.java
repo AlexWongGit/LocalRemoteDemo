@@ -8,7 +8,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 @FeignClient
-@Component
 @Documented
 @Retention(value = java.lang.annotation.RetentionPolicy.RUNTIME)
 @Target(value = {java.lang.annotation.ElementType.TYPE})

@@ -3,7 +3,6 @@ package com.test.aspect;
 import com.test.annotation.CustomFeignClient;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +64,8 @@ public class FeignClientsAspect implements ApplicationContextAware {
             if (methodSignature.getDeclaringType().isAssignableFrom(dynamicBean.getClass())) {
                 return joinPoint.proceed();
             }else {
-                return method.invoke(dynamicBean, joinPoint.getArgs());
+                Method trueMethod = dynamicBean.getClass().getMethod(method.getName(), method.getParameterTypes());
+                return trueMethod.invoke(dynamicBean, joinPoint.getArgs());
             }
         }
 
