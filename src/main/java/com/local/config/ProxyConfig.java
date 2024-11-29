@@ -1,6 +1,5 @@
 package com.local.config;
 
-import com.becalled.controller.TestController;
 import com.test.feign.FeignClientService;
 import com.test.feign.FeignClientService2;
 import org.springframework.context.annotation.Bean;
