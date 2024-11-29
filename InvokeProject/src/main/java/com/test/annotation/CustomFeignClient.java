@@ -1,8 +1,6 @@
 package com.test.annotation;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Component;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

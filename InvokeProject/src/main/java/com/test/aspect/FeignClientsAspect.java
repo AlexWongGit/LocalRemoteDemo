@@ -5,7 +5,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.ApplicationContext;
@@ -65,6 +64,9 @@ public class FeignClientsAspect implements ApplicationContextAware {
                 return joinPoint.proceed();
             }else {
                 Method trueMethod = dynamicBean.getClass().getMethod(method.getName(), method.getParameterTypes());
+                if (trueMethod == null) {
+                    throw new NoSuchMethodException("Method '" + method.getName() + "' not found in bean '" + dynamicBean + "'.");
+                }
                 return trueMethod.invoke(dynamicBean, joinPoint.getArgs());
             }
         }

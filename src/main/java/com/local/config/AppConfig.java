@@ -9,5 +9,5 @@ import org.springframework.context.annotation.FilterType;
     excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
         value = {com.test.InvokeApplication.class,
             com.becalled.controller.TTController.class, com.becalled.IsInvokedApplication.class}))
-public class BaseConfigure {
+public class AppConfig {
 }
