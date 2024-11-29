@@ -16,11 +16,15 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @Aspect
 @Order(1)
 @Component
 public class FeignClientsAspect implements ApplicationContextAware {
+
+    public static ConcurrentMap<String, Object> feignClientMap = new ConcurrentHashMap<>();
 
     private ApplicationContext applicationContext;
 
@@ -31,8 +35,9 @@ public class FeignClientsAspect implements ApplicationContextAware {
 
     @Around("@within(com.test.annotation.CustomFeignClient)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object target = joinPoint.getTarget();
         // 获取注解（这里要获取代理类上的注解）
-        CustomFeignClient customFeignClientAnnotation = AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), CustomFeignClient.class);
+        CustomFeignClient customFeignClientAnnotation = AnnotationUtils.findAnnotation(target.getClass(), CustomFeignClient.class);
 
         if (customFeignClientAnnotation == null) {
             return joinPoint.proceed();
@@ -42,15 +47,26 @@ public class FeignClientsAspect implements ApplicationContextAware {
 
         if (!beanName.isEmpty()) {
             Object dynamicBean;
-            try {
-                dynamicBean = applicationContext.getBean(beanName);
-            } catch (NoSuchBeanDefinitionException e) {
-                beanName += "FeignClient";
-                dynamicBean = applicationContext.getBean(beanName);
+            if (feignClientMap.containsKey(beanName)) {
+                dynamicBean = feignClientMap.get(beanName);
+            } else {
+                try {
+                    dynamicBean = applicationContext.getBean(beanName);
+                } catch (NoSuchBeanDefinitionException e) {
+                    beanName += "FeignClient";
+                    dynamicBean = applicationContext.getBean(beanName);
+                }
+                feignClientMap.put(beanName, dynamicBean);
             }
 
-            // 在调用方法时，替换目标对象为动态 Bean
-            return joinPoint.proceed(new Object[]{dynamicBean});
+            MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+            Method method = methodSignature.getMethod();
+
+            if (methodSignature.getDeclaringType().isAssignableFrom(dynamicBean.getClass())) {
+                return joinPoint.proceed();
+            }else {
+                return method.invoke(dynamicBean, joinPoint.getArgs());
+            }
         }
 
         return joinPoint.proceed();
