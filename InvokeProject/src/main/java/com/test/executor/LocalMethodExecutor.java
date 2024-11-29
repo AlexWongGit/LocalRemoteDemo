@@ -1,6 +1,7 @@
 package com.test.executor;
 
 import com.test.utils.SpringContextUtil;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
@@ -26,8 +27,13 @@ public class LocalMethodExecutor {
      * @throws Exception 如果方法不存在或执行失败
      */
     public <T> T executeMethod(String beanName, Class<T> returnType, String methodName, Object... args) throws Exception {
-
-        Object bean = SpringContextUtil.getBean(beanName);
+        Object bean;
+        try {
+            bean = SpringContextUtil.getBean(beanName);
+        } catch (NoSuchBeanDefinitionException e) {
+            beanName += "FeignClient";
+            bean = SpringContextUtil.getBean(beanName);
+        }
 
         if (bean == null) {
             throw new IllegalArgumentException("Bean not found.");
