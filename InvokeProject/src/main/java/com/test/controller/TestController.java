@@ -17,6 +17,6 @@ public class TestController {
 
     @GetMapping("/getAge")
     public Integer getAge(Integer age) throws Exception {
-        return localMethodExecutor.executeMethod("testServiceImpl", Integer.class,"getAge", age);
+        return localMethodExecutor.executeMethod("testServiceImpl2", Integer.class,"getAge", age);
     }
 }
