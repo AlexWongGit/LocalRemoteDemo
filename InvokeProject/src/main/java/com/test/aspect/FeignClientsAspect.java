@@ -1,6 +1,6 @@
 package com.test.aspect;
 
-import com.test.annotation.CustomFeignClient;
+import com.test.annotation.OpenFeignClient;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.BeansException;
@@ -31,17 +31,17 @@ public class FeignClientsAspect implements ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-    @Around("@within(com.test.annotation.CustomFeignClient)")
+    @Around("@within(com.test.annotation.OpenFeignClient)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         Object target = joinPoint.getTarget();
         // 获取注解（这里要获取代理类上的注解）
-        CustomFeignClient customFeignClientAnnotation = AnnotationUtils.findAnnotation(target.getClass(), CustomFeignClient.class);
+        OpenFeignClient openFeignClientAnnotation = AnnotationUtils.findAnnotation(target.getClass(), OpenFeignClient.class);
 
-        if (customFeignClientAnnotation == null) {
+        if (openFeignClientAnnotation == null) {
             return joinPoint.proceed();
         }
 
-        String beanName = customFeignClientAnnotation.beanName();
+        String beanName = openFeignClientAnnotation.beanName();
 
         if (!beanName.isEmpty()) {
             Object dynamicBean;

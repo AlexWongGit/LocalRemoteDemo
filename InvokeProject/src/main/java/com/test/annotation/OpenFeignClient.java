@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(value = java.lang.annotation.RetentionPolicy.RUNTIME)
 @Target(value = {java.lang.annotation.ElementType.TYPE})
-public @interface CustomFeignClient {
+public @interface OpenFeignClient {
 
     String beanName() default "";
 

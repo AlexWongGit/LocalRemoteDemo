@@ -7,8 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="IsInvokedProject" />
+        <module name="local-remote" />
         <module name="invoke-project" />
+        <module name="IsInvokedProject" />
         <module name="InvokeProject" />
       </profile>
     </annotationProcessing>
@@ -18,6 +19,7 @@
       <module name="InvokeProject" options="-parameters" />
       <module name="IsInvokedProject" options="-parameters" />
       <module name="invoke-project" options="-parameters" />
+      <module name="local-remote" options="-parameters" />
     </option>
   </component>
 </project>

@@ -2,19 +2,20 @@ package com.test.controller;
 
 import com.test.feign.FeignClientService;
 import com.test.feign.FeignClientService2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/test")
 public class TestController {
 
-    @Autowired
+    @Resource
     private FeignClientService feignClientService;
 
-    @Autowired
+    @Resource
     private FeignClientService2 feignClientService2;
 
     @GetMapping("/getAge")
