@@ -63,9 +63,6 @@ public class FeignClientsAspect implements ApplicationContextAware {
                 return joinPoint.proceed();
             }else {
                 Method trueMethod = dynamicBean.getClass().getMethod(method.getName(), method.getParameterTypes());
-                if (trueMethod == null) {
-                    throw new NoSuchMethodException("Method '" + method.getName() + "' not found in bean '" + dynamicBean + "'.");
-                }
                 return trueMethod.invoke(dynamicBean, joinPoint.getArgs());
             }
         }
