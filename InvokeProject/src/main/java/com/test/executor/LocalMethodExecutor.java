@@ -1,5 +1,6 @@
 package com.test.executor;
 
+import com.test.utils.SpringContextUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
@@ -24,7 +25,10 @@ public class LocalMethodExecutor {
      * @return 方法执行结果
      * @throws Exception 如果方法不存在或执行失败
      */
-    public <T> T executeMethod(Object bean, Class<T> returnType, String methodName, Object... args) throws Exception {
+    public <T> T executeMethod(String beanName, Class<T> returnType, String methodName, Object... args) throws Exception {
+
+        Object bean = SpringContextUtil.getBean(beanName);
+
         if (bean == null) {
             throw new IllegalArgumentException("Bean not found.");
         }

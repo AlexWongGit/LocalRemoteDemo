@@ -14,20 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @Autowired
-    private FeignClientService feignClientService;
-
-    @Autowired
     private LocalMethodExecutor localMethodExecutor;
 
 
 
     @GetMapping("/getAge")
     public Integer getAge(Integer age) throws Exception {
-        try {
-            Object bean = SpringContextUtil.getBean("testService");
-            return localMethodExecutor.executeMethod(bean, Integer.class,"getAge", age);
-        } catch (NoSuchBeanDefinitionException e) {
-            return feignClientService.getAge(age);
-        }
+        return localMethodExecutor.executeMethod("testServiceImpl", Integer.class,"getAge", age);
     }
 }
