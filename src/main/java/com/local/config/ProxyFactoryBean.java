@@ -1,8 +1,6 @@
 package com.local.config;
 
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.stereotype.Component;
-
 import java.lang.reflect.Proxy;
 
 public class ProxyFactoryBean<T> implements FactoryBean<T> {
