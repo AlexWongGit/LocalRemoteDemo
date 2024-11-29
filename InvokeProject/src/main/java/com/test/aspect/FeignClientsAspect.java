@@ -51,8 +51,7 @@ public class FeignClientsAspect implements ApplicationContextAware {
                 try {
                     dynamicBean = applicationContext.getBean(beanName);
                 } catch (NoSuchBeanDefinitionException e) {
-                    beanName += "FeignClient";
-                    dynamicBean = applicationContext.getBean(beanName);
+                    return joinPoint.proceed();
                 }
                 feignClientMap.put(beanName, dynamicBean);
             }
