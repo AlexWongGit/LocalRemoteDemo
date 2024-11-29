@@ -1,6 +1,6 @@
 //package com.test.processor;
 //
-//import com.test.annotation.FeignClients;
+//import com.test.annotation.CustomFeignClient;
 //
 //import javax.annotation.processing.AbstractProcessor;
 //import javax.annotation.processing.RoundEnvironment;
@@ -12,14 +12,14 @@
 //import javax.tools.Diagnostic;
 //import java.util.Set;
 //
-//@SupportedAnnotationTypes("com.test.annotation.FeignClients")
+//@SupportedAnnotationTypes("com.test.annotation.CustomFeignClient")
 //@SupportedSourceVersion(SourceVersion.RELEASE_8)
 //public class FeignClientProcessor  extends AbstractProcessor {
 //
 //    @Override
 //    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-//        for (Element element : roundEnv.getElementsAnnotatedWith(FeignClients.class)) {
-//            FeignClients feignClients = element.getAnnotation(FeignClients.class);
+//        for (Element element : roundEnv.getElementsAnnotatedWith(CustomFeignClient.class)) {
+//            CustomFeignClient feignClients = element.getAnnotation(CustomFeignClient.class);
 //            String beanName = feignClients.beanName();
 //            String name = feignClients.name();
 //            String url = feignClients.url();
